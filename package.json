@@ -10,7 +10,8 @@
   "license": "ISC",
   "type": "module",
   "bin": {
-    "test2": "bin/index.js"
+    "test2": "bin/index.js",
+    "gendiff": "bin/gendiff.js" 
   },
   "dependencies": {
     "commander": "^12.1.0"
