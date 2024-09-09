@@ -11,5 +11,8 @@
   "type": "module",
   "bin": {
     "test2": "bin/index.js"
+  },
+  "dependencies": {
+    "commander": "^12.1.0"
   }
 }

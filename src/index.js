@@ -3,3 +3,9 @@ const greet = () => {
 }
 
 export default greet;
+
+//const gendiff = (filepath1, filepath2, format) = {
+
+
+//    return
+//}
