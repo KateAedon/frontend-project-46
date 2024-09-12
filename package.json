@@ -11,9 +11,10 @@
   "type": "module",
   "bin": {
     "test2": "bin/index.js",
-    "gendiff": "bin/gendiff.js" 
+    "gendiff": "bin/gendiff.js"
   },
   "dependencies": {
-    "commander": "^12.1.0"
+    "commander": "^12.1.0",
+    "js-yaml": "^4.1.0"
   }
 }
