@@ -3,7 +3,7 @@
 import { Command } from 'commander';
 import fs from 'fs';
 import path from 'path';
-import parser from '/Users/red-edit/Developer/frontend-project-46/src/parser.js'
+import parser from '../src/parser.js'
 
 const program = new Command();
 
