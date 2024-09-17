@@ -5,7 +5,7 @@ export default function parseFile(fileData, filePath) {
 
   if (extension === 'json') {
     return JSON.parse(fileData);
-  } else if (extension === 'yaml' || extension === 'yml') {
+  } if (extension === 'yaml' || extension === 'yml') {
     return yaml.load(fileData);
   }
-};
+}

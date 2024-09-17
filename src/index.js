@@ -1,6 +1,5 @@
 const greet = () => {
-    console.log('hallo');
-}
+  console.log('hallo');
+};
 
 export default greet;
-

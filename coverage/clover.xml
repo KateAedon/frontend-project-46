@@ -1,8 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1726571626703" clover="3.2.0">
-  <project timestamp="1726571626703" name="All files">
-    <metrics statements="5" coveredstatements="5" conditionals="6" coveredconditionals="5" methods="1" coveredmethods="1" elements="12" coveredelements="11" complexity="0" loc="5" ncloc="5" packages="1" files="1" classes="1"/>
-    <file name="parser.js" path="/Users/red-edit/Developer/frontend-project-46/src/parser.js">
+<coverage generated="1726577352509" clover="3.2.0">
+  <project timestamp="1726577352509" name="All files">
+    <metrics statements="20" coveredstatements="20" conditionals="14" coveredconditionals="13" methods="3" coveredmethods="3" elements="37" coveredelements="36" complexity="0" loc="20" ncloc="20" packages="1" files="2" classes="2"/>
+    <file name="compareFiles.js" path="/Users/red-edit/Developer/frontend-project-46/src/compareFiles.js">
+      <metrics statements="15" coveredstatements="15" conditionals="8" coveredconditionals="8" methods="2" coveredmethods="2"/>
+      <line num="3" count="3" type="stmt"/>
+      <line num="5" count="3" type="stmt"/>
+      <line num="6" count="3" type="stmt"/>
+      <line num="7" count="15" type="cond" truecount="2" falsecount="0"/>
+      <line num="8" count="9" type="stmt"/>
+      <line num="12" count="3" type="stmt"/>
+      <line num="14" count="3" type="stmt"/>
+      <line num="15" count="9" type="cond" truecount="2" falsecount="0"/>
+      <line num="16" count="1" type="stmt"/>
+      <line num="17" count="8" type="cond" truecount="2" falsecount="0"/>
+      <line num="18" count="2" type="stmt"/>
+      <line num="19" count="6" type="cond" truecount="2" falsecount="0"/>
+      <line num="20" count="2" type="stmt"/>
+      <line num="22" count="4" type="stmt"/>
+      <line num="26" count="3" type="stmt"/>
+    </file>
+    <file name="parse.js" path="/Users/red-edit/Developer/frontend-project-46/src/parse.js">
       <metrics statements="5" coveredstatements="5" conditionals="6" coveredconditionals="5" methods="1" coveredmethods="1"/>
       <line num="4" count="2" type="stmt"/>
       <line num="6" count="2" type="cond" truecount="2" falsecount="0"/>
