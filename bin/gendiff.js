@@ -3,7 +3,8 @@
 import { Command } from 'commander';
 import fs from 'fs';
 import path from 'path';
-import parse from '../src/parser.js'
+import parse from '../src/parse.js'
+import compareFiles from '../src/compareFiles.js';
 
 const program = new Command();
 
@@ -23,7 +24,9 @@ program
     const parsedFile1 = parse(file1, absolutePath1);
     const parsedFile2 = parse(file2, absolutePath2);
 
-    
+    const difference = compareFiles(parsedFile1, parsedFile2);
+
+    console.log(difference, "difference");
 
     console.log('file1:', parsedFile1);
     console.log('file2', parsedFile2);
