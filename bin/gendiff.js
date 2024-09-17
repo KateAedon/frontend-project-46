@@ -3,7 +3,7 @@
 import { Command } from 'commander';
 import fs from 'fs';
 import path from 'path';
-import parser from '../src/parser.js'
+import parse from '../src/parser.js'
 
 const program = new Command();
 
@@ -20,8 +20,10 @@ program
     const file1 = fs.readFileSync(filepath1, 'utf-8');
     const file2 = fs.readFileSync(filepath2, 'utf-8');
 
-    const parsedFile1 = parser(file1, absolutePath1);
-    const parsedFile2 = parser(file2, absolutePath2);
+    const parsedFile1 = parse(file1, absolutePath1);
+    const parsedFile2 = parse(file2, absolutePath2);
+
+    
 
     console.log('file1:', parsedFile1);
     console.log('file2', parsedFile2);
