@@ -4,7 +4,8 @@
   "description": "study project for Hexlet",
   "main": "gendiff.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint ."
   },
   "author": "KateAedon",
   "license": "ISC",
