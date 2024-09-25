@@ -32,4 +32,4 @@ jobs:
           npm test -- --coverage
           npx codeclimate-test-reporter after-build --exit-code $?
         env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          CODECLIMATE_REPO_TOKEN: ${{ secrets.CODECLIMATE_REPO_TOKEN }}
