@@ -9,6 +9,7 @@
     "lint": "eslint ."
   },
   "jest": {
+    "testEnvironment": "node",
     "collectCoverage": true,
     "coverageReporters": ["json", "text", "lcov"]
   },
