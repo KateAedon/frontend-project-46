@@ -1,4 +1,4 @@
-import compareFiles from '../src/compareFiles';
+import compareFiles from '../src/compareFiles.js';
 
 test('compare two objects with changed keys', () => {
   const obj1 = {
@@ -25,6 +25,8 @@ test('compare two objects with changed keys', () => {
 
   const result = compareFiles(obj1, obj2).split('\n').sort();
   const expected = expectedLines.sort();
+
+  expect(result).toEqual(expected);
 });
 
 test('compare two objects with unchanged keys', () => {

@@ -8,4 +8,6 @@ export default function parseFile(fileData, filePath) {
   } if (extension === 'yaml' || extension === 'yml') {
     return yaml.load(fileData);
   }
+
+  throw new Error(`Unsupported file type: ${extension}`);
 }
