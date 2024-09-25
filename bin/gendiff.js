@@ -25,6 +25,7 @@ program
     const parsedFile2 = parse(file2, absolutePath2);
 
     const difference = compareFiles(parsedFile1, parsedFile2);
-    console.log(difference, 'difference');
+    console.log(difference, 'differece', typeof difference )
+    return difference;
   })
   .parse(process.argv);
