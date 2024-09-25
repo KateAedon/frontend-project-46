@@ -28,6 +28,8 @@ jobs:
         run: npm run lint
 
       - name: Run tests with coverage
-        run: make test
+        run: |
+          npm test
+          npm run report  # Запуск вашего нового скрипта для отправки отчета
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
