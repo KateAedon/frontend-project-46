@@ -5,6 +5,7 @@
   "main": "gendiff.js",
   "scripts": {
     "test": "jest --coverage",
+    "report": "codeclimate-test-reporter after-build --exit-code $?",
     "lint": "eslint ."
   },
   "author": "KateAedon",

@@ -28,8 +28,6 @@ jobs:
         run: npm run lint
 
       - name: Run tests with coverage
-        run: |
-          npm test -- --coverage
-          ./cc-test-reporter after-build --exit-code $?
+        run: make test
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
