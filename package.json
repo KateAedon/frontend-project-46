@@ -8,6 +8,10 @@
     "report": "codeclimate-test-reporter after-build --exit-code $?",
     "lint": "eslint ."
   },
+  "jest": {
+    "collectCoverage": true,
+    "coverageReporters": ["json", "text", "lcov"]
+  }
   "author": "KateAedon",
   "license": "ISC",
   "type": "module",
