@@ -29,7 +29,7 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          npm test
-          npm run report  # Запуск вашего нового скрипта для отправки отчета
+          npm test -- --coverage
+          npx codeclimate-test-reporter after-build --exit-code $?
         env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          CODECLIMATE_REPO_TOKEN: ${{ secrets.CC_TEST_REPORTER_ID }}
