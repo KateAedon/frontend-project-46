@@ -30,6 +30,6 @@ jobs:
       - name: Run tests with coverage
         run: |
           npm test --coverage
-          npx codeclimate-test-reporter after-build --exit-code $?
+          npx codeclimate-test-reporter < coverage/lcov.info --exit-code $?
         env:
           CODECLIMATE_REPO_TOKEN: ${{ secrets.CODECLIMATE_REPO_TOKEN }}
