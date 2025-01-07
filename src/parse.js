@@ -1,7 +1,7 @@
 import yaml from 'js-yaml';
 import path from 'path';
 
-export function parse(fileData, filePath) {
+export default function parse(fileData, filePath) {
   const extension = path.extname(filePath).slice(1).toLowerCase();
 
   if (extension === 'json') {

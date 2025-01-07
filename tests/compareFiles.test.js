@@ -1,5 +1,5 @@
 import compareFiles from '../src/compareFiles.js';
-import { parse } from '../src/parse.js';
+import parse from '../src/parse.js';
 
 test('compare two objects with changed keys', () => {
   const obj1 = {
@@ -88,8 +88,8 @@ test('compare two YAML objects with changes', () => {
     verbose: true
   `;
 
-  const obj1 = parse(yaml1, 'file1.yml'); 
-  const obj2 = parse(yaml2, 'file2.yml'); 
+  const obj1 = parse(yaml1, 'file1.yml');
+  const obj2 = parse(yaml2, 'file2.yml');
 
   const expectedLines = [
     '  host: hexlet.io',
@@ -114,7 +114,7 @@ test('compare two YAML objects with no changes', () => {
     follow: false
   `;
 
-  const obj1 = parse(yaml1, 'file1.yml'); 
+  const obj1 = parse(yaml1, 'file1.yml');
   const obj2 = parse(yaml1, 'file1.yml');
 
   const expectedLines = [

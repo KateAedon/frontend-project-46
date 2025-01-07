@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { parse } from '../src/parse.js';
+import parse from '../src/parse.js';
 
 test('parse JSON file correctly', () => {
   const filePath = path.resolve(process.cwd(), './tests/fixtures/file1.json');
@@ -34,7 +34,7 @@ test('parse YAML file correctly', () => {
 
 test('throw error for unsupported file type', () => {
   const fileData = 'dummy content';
-  const filePath = './tests/fixtures/file1.txt'; 
+  const filePath = './tests/fixtures/file1.txt';
 
   expect(() => parse(fileData, filePath))
     .toThrow('Unsupported file type: txt for file: ./tests/fixtures/file1.txt');
