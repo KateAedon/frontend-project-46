@@ -1,4 +1,5 @@
 import compareFiles from '../src/compareFiles.js';
+import { parse } from '../src/parse.js';
 
 test('compare two objects with changed keys', () => {
   const obj1 = {
@@ -66,6 +67,61 @@ test('compare two objects with changed values', () => {
     '  host: hexlet.io',
     '- timeout: 50',
     '+ timeout: 20',
+  ];
+
+  const result = compareFiles(obj1, obj2).split('\n').sort();
+  const expected = expectedLines.sort();
+
+  expect(result).toEqual(expected);
+});
+
+test('compare two YAML objects with changes', () => {
+  const yaml1 = `
+    host: hexlet.io
+    timeout: 50
+    proxy: 123.234.53.22
+    follow: false
+  `;
+  const yaml2 = `
+    host: hexlet.io
+    timeout: 20
+    verbose: true
+  `;
+
+  const obj1 = parse(yaml1, 'file1.yml'); 
+  const obj2 = parse(yaml2, 'file2.yml'); 
+
+  const expectedLines = [
+    '  host: hexlet.io',
+    '- follow: false',
+    '- proxy: 123.234.53.22',
+    '- timeout: 50',
+    '+ timeout: 20',
+    '+ verbose: true',
+  ];
+
+  const result = compareFiles(obj1, obj2).split('\n').sort();
+  const expected = expectedLines.sort();
+
+  expect(result).toEqual(expected);
+});
+
+test('compare two YAML objects with no changes', () => {
+  const yaml1 = `
+    host: hexlet.io
+    timeout: 50
+    proxy: 123.234.53.22
+    follow: false
+  `;
+
+  const obj1 = parse(yaml1, 'file1.yml'); 
+  const obj2 = parse(yaml1, 'file1.yml');
+
+  const expectedLines = [
+    '  host: hexlet.io',
+    '  timeout: 50',
+    '  proxy: 123.234.53.22',
+    '  follow: false',
   ];
 
   const result = compareFiles(obj1, obj2).split('\n').sort();

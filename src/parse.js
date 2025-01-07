@@ -1,7 +1,8 @@
 import yaml from 'js-yaml';
+import path from 'path';
 
-export default function parseFile(fileData, filePath) {
-  const extension = filePath.split('.').pop();
+export function parse(fileData, filePath) {
+  const extension = path.extname(filePath).slice(1).toLowerCase();
 
   if (extension === 'json') {
     return JSON.parse(fileData);
@@ -9,5 +10,5 @@ export default function parseFile(fileData, filePath) {
     return yaml.load(fileData);
   }
 
-  throw new Error(`Unsupported file type: ${extension}`);
+  throw new Error(`Unsupported file type: ${extension} for file: ${filePath}`);
 }
