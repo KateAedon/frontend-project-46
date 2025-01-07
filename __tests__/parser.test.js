@@ -2,8 +2,9 @@ import fs from 'fs';
 import path from 'path';
 import parse from '../src/parse.js';
 
+
 test('parse JSON file correctly', () => {
-  const filePath = path.resolve(process.cwd(), './tests/__fixtures__/file1.json');
+  const filePath = path.resolve(process.cwd(), '__fixtures__/file1.json');
   const fileData = fs.readFileSync(filePath, 'utf-8');
   const result = parse(fileData, filePath);
 
@@ -18,7 +19,7 @@ test('parse JSON file correctly', () => {
 });
 
 test('parse YAML file correctly', () => {
-  const filePath = path.resolve(process.cwd(), './tests/__fixtures__/file1.yml');
+  const filePath = path.resolve(process.cwd(), '__fixtures__/file1.yml');
   const fileData = fs.readFileSync(filePath, 'utf-8');
   const result = parse(fileData, filePath);
 
@@ -34,8 +35,8 @@ test('parse YAML file correctly', () => {
 
 test('throw error for unsupported file type', () => {
   const fileData = 'dummy content';
-  const filePath = './tests/__fixtures__/file1.txt';
+  const filePath = '__fixtures__/file1.txt';
 
   expect(() => parse(fileData, filePath))
-    .toThrow('Unsupported file type: txt for file: ./tests/__fixtures__/file1.txt');
+    .toThrow('Unsupported file type: txt for file: __fixtures__/file1.txt');
 });
