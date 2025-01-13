@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import parse from '../src/parse.js';
 
-
 test('parse JSON file correctly', () => {
   const filePath = path.resolve(process.cwd(), '__fixtures__/file1.json');
   const fileData = fs.readFileSync(filePath, 'utf-8');
