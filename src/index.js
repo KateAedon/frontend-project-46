@@ -12,7 +12,6 @@ const difference = (filePath1, filePath2) => {
   const file2 = parseFile(filePath2);
 
   const diff = compareFiles(file1, file2);
-  console.log(diff, 'difference!!');
   return diff;
 };
 
