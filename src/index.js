@@ -3,15 +3,15 @@ import path from 'path';
 import parse from './parse.js';
 import compareFiles from './compareFiles.js';
 
-const getPath = (filePath) => path.resolve(process.cwd(), filePath);
-const readFile = (filePath) => fs.readFileSync(filePath, 'utf-8');
-const parseFile = (filePath) => parse(readFile(filePath), getPath(filePath));
+const getFullPath = (filepath) => path.resolve(process.cwd(), filepath);
+const getExtension = (filepath) => path.extname(filepath).slice(1).toLowerCase();
+const readFile = (filepath) => fs.readFileSync(getFullPath(filepath), 'utf-8');
 
-const difference = (filePath1, filePath2) => {
-  const file1 = parseFile(filePath1);
-  const file2 = parseFile(filePath2);
+const difference = (filepath1, filepath2) => {
+  const obj1 = parse(readFile(filepath1), getExtension(filepath1));
+  const obj2 = parse(readFile(filepath2), getExtension(filepath2));
 
-  const diff = compareFiles(file1, file2);
+  const diff = compareFiles(obj1, obj2);
   return diff;
 };
 

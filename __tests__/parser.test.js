@@ -5,13 +5,34 @@ import parse from '../src/parse.js';
 test('parse JSON file correctly', () => {
   const filePath = path.resolve(process.cwd(), '__fixtures__/file1.json');
   const fileData = fs.readFileSync(filePath, 'utf-8');
-  const result = parse(fileData, filePath);
+  const extension = path.extname(filePath).slice(1).toLowerCase();
+  const result = parse(fileData, extension);
 
   const expected = {
-    host: 'hexlet.io',
-    timeout: 50,
-    proxy: '123.234.53.22',
-    follow: false,
+    common: {
+      setting1: 'Value 1',
+      setting2: 200,
+      setting3: true,
+      setting6: {
+        key: 'value',
+        doge: {
+          wow: '',
+        },
+      },
+    },
+    group1: {
+      baz: 'bas',
+      foo: 'bar',
+      nest: {
+        key: 'value',
+      },
+    },
+    group2: {
+      abc: 12345,
+      deep: {
+        id: 45,
+      },
+    },
   };
 
   expect(result).toEqual(expected);
@@ -20,13 +41,34 @@ test('parse JSON file correctly', () => {
 test('parse YAML file correctly', () => {
   const filePath = path.resolve(process.cwd(), '__fixtures__/file1.yml');
   const fileData = fs.readFileSync(filePath, 'utf-8');
-  const result = parse(fileData, filePath);
+  const extension = path.extname(filePath).slice(1).toLowerCase();
+  const result = parse(fileData, extension);
 
   const expected = {
-    host: 'hexlet.io',
-    timeout: 50,
-    proxy: '123.234.53.22',
-    follow: false,
+    common: {
+      setting1: 'Value 1',
+      setting2: 200,
+      setting3: true,
+      setting6: {
+        key: 'value',
+        doge: {
+          wow: '',
+        },
+      },
+    },
+    group1: {
+      baz: 'bas',
+      foo: 'bar',
+      nest: {
+        key: 'value',
+      },
+    },
+    group2: {
+      abc: 12345,
+      deep: {
+        id: 45,
+      },
+    },
   };
 
   expect(result).toEqual(expected);
@@ -34,8 +76,8 @@ test('parse YAML file correctly', () => {
 
 test('throw error for unsupported file type', () => {
   const fileData = 'dummy content';
-  const filePath = '__fixtures__/file1.txt';
+  const extension = 'txt';
 
-  expect(() => parse(fileData, filePath))
-    .toThrow('Unsupported file type: txt for file: __fixtures__/file1.txt');
+  expect(() => parse(fileData, extension))
+    .toThrow('Unsupported file type: txt');
 });
