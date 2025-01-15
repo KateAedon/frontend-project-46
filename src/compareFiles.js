@@ -1,9 +1,7 @@
 import _ from 'lodash';
 
 export default function compareFiles(obj1, obj2) {
-
   const diffTree = _.union(_.keys(obj1), _.keys(obj2));
-
   const sortKeys = _.sortBy(diffTree);
 
   return sortKeys.map((key) => {
@@ -46,4 +44,4 @@ export default function compareFiles(obj1, obj2) {
       type: 'unchanged',
     };
   });
-};
+}
