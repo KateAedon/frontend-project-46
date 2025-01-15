@@ -24,7 +24,7 @@ test('compare two objects with changed keys', () => {
     '+ verbose: true',
   ];
 
-  const result = compareFiles(obj1, obj2).split('\n').sort();
+  const result = compareFiles(obj1, obj2);
   const expected = expectedLines.sort();
 
   expect(result).toEqual(expected);
@@ -46,7 +46,7 @@ test('compare two objects with unchanged keys', () => {
     '  timeout: 50',
   ];
 
-  const result = compareFiles(obj1, obj2).split('\n').sort();
+  const result = compareFiles(obj1, obj2);
   const expected = expectedLines.sort();
 
   expect(result).toEqual(expected);
@@ -69,7 +69,7 @@ test('compare two objects with changed values', () => {
     '+ timeout: 20',
   ];
 
-  const result = compareFiles(obj1, obj2).split('\n').sort();
+  const result = compareFiles(obj1, obj2);
   const expected = expectedLines.sort();
 
   expect(result).toEqual(expected);
@@ -100,7 +100,7 @@ test('compare two YAML objects with changes', () => {
     '+ verbose: true',
   ];
 
-  const result = compareFiles(obj1, obj2).split('\n').sort();
+  const result = compareFiles(obj1, obj2);
   const expected = expectedLines.sort();
 
   expect(result).toEqual(expected);
@@ -124,7 +124,7 @@ test('compare two YAML objects with no changes', () => {
     '  follow: false',
   ];
 
-  const result = compareFiles(obj1, obj2).split('\n').sort();
+  const result = compareFiles(obj1, obj2);
   const expected = expectedLines.sort();
 
   expect(result).toEqual(expected);

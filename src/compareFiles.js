@@ -1,27 +1,49 @@
+import _ from 'lodash';
+
 export default function compareFiles(obj1, obj2) {
-  const keys = Object.keys(obj1).concat(Object.keys(obj2));
 
-  const uniqueKeys = [];
-  keys.forEach((key) => {
-    if (!uniqueKeys.includes(key)) {
-      uniqueKeys.push(key);
+  const diffTree = _.union(_.keys(obj1), _.keys(obj2));
+
+  const sortKeys = _.sortBy(diffTree);
+
+  return sortKeys.map((key) => {
+    if (_.isPlainObject(obj1[key]) && _.isPlainObject(obj2[key])) {
+      return {
+        key,
+        children: compareFiles(obj1[key], obj2[key]),
+        type: 'nested',
+      };
     }
+
+    if (!_.has(obj1, key) && _.has(obj2, key)) {
+      return {
+        key,
+        value: obj2[key],
+        type: 'added',
+      };
+    }
+
+    if (_.has(obj1, key) && !_.has(obj2, key)) {
+      return {
+        key,
+        value: obj1[key],
+        type: 'deleted',
+      };
+    }
+
+    if (!_.isEqual(obj1[key], obj2[key])) {
+      return {
+        key,
+        value1: obj1[key],
+        value2: obj2[key],
+        type: 'changed',
+      };
+    }
+
+    return {
+      key,
+      value: obj1[key],
+      type: 'unchanged',
+    };
   });
-
-  uniqueKeys.sort();
-
-  const result = uniqueKeys.map((key) => {
-    if (!(key in obj1)) {
-      return `+ ${key}: ${obj2[key]}`;
-    }
-    if (!(key in obj2)) {
-      return `- ${key}: ${obj1[key]}`;
-    }
-    if (obj1[key] !== obj2[key]) {
-      return `- ${key}: ${obj1[key]}\n+ ${key}: ${obj2[key]}`;
-    }
-    return `  ${key}: ${obj1[key]}`;
-  });
-
-  return result.join('\n');
-}
+};

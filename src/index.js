@@ -12,6 +12,9 @@ const difference = (filepath1, filepath2) => {
   const obj2 = parse(readFile(filepath2), getExtension(filepath2));
 
   const diff = compareFiles(obj1, obj2);
+  console.log(diff, 'diff from indx');
+  console.log(obj1, 'obj1');
+  console.log(obj2, 'obj2');
   return diff;
 };
 
