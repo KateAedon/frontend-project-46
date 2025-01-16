@@ -1,47 +1,38 @@
 import _ from 'lodash';
 
-export default function compareFiles(obj1, obj2) {
-  const diffTree = _.union(_.keys(obj1), _.keys(obj2));
-  const sortKeys = _.sortBy(diffTree);
-
-  return sortKeys.map((key) => {
-    if (_.isPlainObject(obj1[key]) && _.isPlainObject(obj2[key])) {
+const compareFiles = (data1, data2) => {
+  const sortedKeys = _.sortBy(Object.keys({ ...data1, ...data2 }));
+  return sortedKeys.map((key) => {
+    if (!_.has(data1, key)) {
       return {
-        key,
-        children: compareFiles(obj1[key], obj2[key]),
-        type: 'nested',
-      };
-    }
-
-    if (!_.has(obj1, key) && _.has(obj2, key)) {
-      return {
-        key,
-        value: obj2[key],
         type: 'added',
+        key,
+        value2: data2[key],
       };
     }
-
-    if (_.has(obj1, key) && !_.has(obj2, key)) {
+    if (!_.has(data2, key)) {
       return {
-        key,
-        value: obj1[key],
         type: 'deleted',
-      };
-    }
-
-    if (!_.isEqual(obj1[key], obj2[key])) {
-      return {
         key,
-        value1: obj1[key],
-        value2: obj2[key],
-        type: 'changed',
+        value: data1[key],
       };
     }
-
-    return {
-      key,
-      value: obj1[key],
-      type: 'unchanged',
-    };
+    if (_.isPlainObject(data1[key]) && _.isPlainObject(data2[key])) {
+      return {
+        type: 'nodes',
+        key,
+        children: compareFiles(data1[key], data2[key]),
+      };
+    }
+    if (!_.isEqual(data1[key], data2[key])) {
+      return {
+        type: 'changed',
+        key,
+        value1: data1[key],
+        value2: data2[key],
+      };
+    }
+    return { type: 'unchanged', key, value: data2[key] };
   });
-}
+};
+export default compareFiles;

@@ -1,43 +1,36 @@
-const indent = (depth, spaces = 4) => ' '.repeat(depth * spaces - 2);
+import _ from 'lodash';
 
-const formatValue = (value, depth) => {
-  if (typeof value !== 'object' || value === null) {
+const spacesCount = 4;
+const offsetLeft = 2;
+
+const indent = (depth) => ' '.repeat((depth * spacesCount) - offsetLeft);
+
+const stringify = (value, depth) => {
+  if (!_.isObject(value)) {
     return `${value}`;
   }
-
-  const entries = Object.entries(value)
-    .map(([key, val]) => `${indent(depth + 1)}  ${key}: ${formatValue(val, depth + 1)}`)
-    .join('\n');
-
-  return `{\n${entries}\n${indent(depth)}}`;
+  const keys = Object.keys(value);
+  const output = keys.map((key) => `${indent(depth + 1)}  ${key}: ${stringify(value[key], depth + 1)}`);
+  return `{\n${output.join('\n')}\n  ${indent(depth)}}`;
 };
+const iter = (tree, depth) => tree.map((node) => {
+  const createString = (value, sign) => `${indent(depth)}${sign} ${node.key}: ${stringify(value, depth)}\n`;
+  switch (node.type) {
+    case 'added':
+      return createString(node.value2, '+');
+    case 'deleted':
+      return createString(node.value, '-');
+    case 'unchanged':
+      return createString(node.value, ' ');
+    case 'changed':
+      return `${createString(node.value1, '-')}${createString(node.value2, '+')}`;
+    case 'nodes':
+      return `${indent(depth)}  ${node.key}: {\n${iter(node.children, depth + 1).join('')}${indent(depth)}  }\n`;
+    default:
+      throw new Error(`This type does not exist: ${node.type}`);
+  }
+});
 
-const stylish = (tree, depth = 1) => {
-  const lines = tree.map((node) => {
-    const {
-      key, value, value1, value2, type, children,
-    } = node;
-
-    switch (type) {
-      case 'nested':
-        return `${indent(depth)}  ${key}: {\n${stylish(children, depth + 1)}\n${indent(depth)}  }`;
-      case 'added':
-        return `${indent(depth)}+ ${key}: ${formatValue(value, depth)}`;
-      case 'deleted':
-        return `${indent(depth)}- ${key}: ${formatValue(value, depth)}`;
-      case 'changed':
-        return [
-          `${indent(depth)}- ${key}: ${formatValue(value1, depth)}`,
-          `${indent(depth)}+ ${key}: ${formatValue(value2, depth)}`,
-        ].join('\n');
-      case 'unchanged':
-        return `${indent(depth)}  ${key}: ${formatValue(value, depth)}`;
-      default:
-        throw new Error(`Unknown type: ${type}`);
-    }
-  });
-
-  return lines.join('\n');
-};
+const stylish = (tree) => `{\n${iter(tree, 1).join('')}}`;
 
 export default stylish;
