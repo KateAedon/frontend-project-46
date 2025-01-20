@@ -1,18 +1,18 @@
 import stylish from './stylish.js';
 import plain from './plain.js';
 
-const formatter = (tree, format) => {
-    switch (format) {
-      case 'stylish':
-        return stylish(tree);
-      case 'plain':
-        return plain(tree);
-      case 'json':
-        return JSON.stringify(tree, null, 2);
+const formatter = (diff, format) => {
+  switch (format) {
+    case 'stylish':
+      return stylish(diff);
+    case 'plain':
+      return plain(diff);
+    case 'json':
+      return JSON.stringify(diff);
 
-      default:
-        throw new Error(`format ${format} not supported. Choose 'stylish', 'plain' or 'json'`);
-    }
-  };
+    default:
+      throw new Error(`format ${format} not supported. Choose 'stylish', 'plain' or 'json'`);
+  }
+};
 
 export default formatter;

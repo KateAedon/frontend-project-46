@@ -1,36 +1,68 @@
 import _ from 'lodash';
 
-const spacesCount = 4;
-const offsetLeft = 2;
+const status = {
+  added: '+',
+  deleted: '-',
+  unchanged: ' ',
+  nested: ' ',
+};
 
-const indent = (depth) => ' '.repeat((depth * spacesCount) - offsetLeft);
+const getIndent = (depth, correctSize = 0) => {
+  const replacer = '  ';
+  const indentSize = depth * 2;
+  const currentIndent = replacer.repeat(indentSize - correctSize);
+  const bracketIndent = replacer.repeat(indentSize - 2);
+  return { currentIndent, bracketIndent };
+};
+
+const formatBraces = (lines, depth) => {
+  const { bracketIndent } = getIndent(depth);
+  return [
+    '{',
+    ...lines,
+    `${bracketIndent}}`,
+  ].join('\n');
+};
 
 const stringify = (value, depth) => {
   if (!_.isObject(value)) {
     return `${value}`;
   }
-  const keys = Object.keys(value);
-  const output = keys.map((key) => `${indent(depth + 1)}  ${key}: ${stringify(value[key], depth + 1)}`);
-  return `{\n${output.join('\n')}\n  ${indent(depth)}}`;
-};
-const iter = (tree, depth) => tree.map((node) => {
-  const createString = (value, sign) => `${indent(depth)}${sign} ${node.key}: ${stringify(value, depth)}\n`;
-  switch (node.type) {
-    case 'added':
-      return createString(node.value2, '+');
-    case 'deleted':
-      return createString(node.value, '-');
-    case 'unchanged':
-      return createString(node.value, ' ');
-    case 'changed':
-      return `${createString(node.value1, '-')}${createString(node.value2, '+')}`;
-    case 'nodes':
-      return `${indent(depth)}  ${node.key}: {\n${iter(node.children, depth + 1).join('')}${indent(depth)}  }\n`;
-    default:
-      throw new Error(`This type does not exist: ${node.type}`);
-  }
-});
 
-const stylish = (tree) => `{\n${iter(tree, 1).join('')}}`;
+  const { currentIndent } = getIndent(depth);
+  const lines = Object.entries(value).map(
+    ([key, val]) => `${currentIndent}${key}: ${stringify(val, depth + 1)}`,
+  );
+
+  return formatBraces(lines, depth);
+};
+
+const stylish = (node, depth = 1) => {
+  const result = node.map(({
+    key, value, type, value1, value2, children,
+  }) => {
+    const { currentIndent } = getIndent(depth, 1);
+
+    switch (type) {
+      case 'added':
+        return `${currentIndent}${status.added} ${key}: ${stringify(value, depth + 1)}`;
+      case 'deleted':
+        return `${currentIndent}${status.deleted} ${key}: ${stringify(value, depth + 1)}`;
+      case 'changed':
+        return [
+          `${currentIndent}${status.deleted} ${key}: ${stringify(value1, depth + 1)}`,
+          `${currentIndent}${status.added} ${key}: ${stringify(value2, depth + 1)}`,
+        ].join('\n');
+      case 'nested':
+        return `${currentIndent}${status.nested} ${key}: ${stylish(children, depth + 1)}`;
+      case 'unchanged':
+        return `${currentIndent}${status.unchanged} ${key}: ${stringify(value, depth + 1)}`;
+      default:
+        throw new Error(`Unknown type: ${type}`);
+    }
+  });
+
+  return formatBraces(result, depth);
+};
 
 export default stylish;
