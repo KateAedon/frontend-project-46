@@ -2,7 +2,7 @@ install: deps-install
 	npx simple-git-hooks
 
 run:
-	bin/nodejs-package.js 10
+	bin/nodejs-package.js
 
 deps-install:
 	npm ci --legacy-peer-deps
@@ -13,13 +13,7 @@ deps-update:
 test:
 	npm test
 
-test-coverage:
-	npm test -- --coverage --coverageProvider=v8
-
 lint:
 	npx eslint .
-
-publish:
-	npm publish
 
 .PHONY: test
